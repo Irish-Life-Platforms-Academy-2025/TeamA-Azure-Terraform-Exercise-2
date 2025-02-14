@@ -68,14 +68,14 @@ resource "azurerm_network_security_rule" "allow_https" {
 
 #Associate NSG with the subnets
 resource "azurerm_subnet_network_security_group_association" "public-subnet-1_NSG" {
-    subnet_id = azurerm_subnet.teamA-pub-subnet1
+    subnet_id = azurerm_subnet.teamA-pub-subnet1.id
     network_security_group_id = azurerm_network_security_group.public-NSG.id
 }
 resource "azurerm_subnet_network_security_group_association" "public-subnet-2_NSG" {
-    subnet_id = azurerm_subnet.teamA-pub-subnet2
+    subnet_id = azurerm_subnet.teamA-pub-subnet2.id
     network_security_group_id = azurerm_network_security_group.public-NSG.id
 }
 resource "azurerm_subnet_network_security_group_association" "public-subnet-3_NSG" {
-    subnet_id = azurerm_subnet.teamA-pub-subnet3
+    subnet_id = azurerm_subnet.teamA-pub-subnet3.id
     network_security_group_id = azurerm_network_security_group.public-NSG.id
 }
