@@ -3,6 +3,7 @@ resource "azurerm_linux_virtual_machine" "teamA-vm1" {
   name                = "${var.name}-Private-vm1"
   resource_group_name = var.rg
   location            = var.location
+  zone = "1"
   network_interface_ids = [azurerm_network_interface.teamA-nic1.id]
   size                  = var.vm_size
 
@@ -29,6 +30,7 @@ resource "azurerm_linux_virtual_machine" "teamA-vm2" {
   name                = "${var.name}-Private-vm2"
   resource_group_name = var.rg
   location            = var.location
+  zone = "2"
   network_interface_ids = [azurerm_network_interface.teamA-nic2.id]
   size                  = var.vm_size
 
