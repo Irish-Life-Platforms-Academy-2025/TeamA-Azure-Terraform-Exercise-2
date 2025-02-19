@@ -1,13 +1,12 @@
-variable "rg" {
-  type        = string
-  default     = "TeamA-rg"
-  description = "Name for resource group"
-}
-
 variable "name" {
   type        = string
   default     = "teamA"
   description = "Name for resource"
+}
+
+variable "environment" {
+	type = string
+	description = "Environment name."
 }
 
 variable "location" {
@@ -23,6 +22,11 @@ variable "password" {
 }
 
 variable "vm_size" {
+  type = string
+  default = "Standard_D2s_v3"
+}
+
+variable "vm_size2" {
   type = string
   default = "Standard_D2s_v3"
 }
@@ -43,16 +47,4 @@ variable "Private_vnet_cidr" {
     type = string
     description = "Public VNet address space (CIDR notation)"
     default = "10.30.0.0/16"
-}
-
-variable "private-subnet" {
-  type        = string
-  default     = "private-subnet"
-  description = "Name for private subnets"
-}
-
-variable "public-subnet" {
-  type        = string
-  default     = "public-subnet"
-  description = "Name for public subnets"
 }
