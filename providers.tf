@@ -1,11 +1,10 @@
 terraform {
-  required_version = ">= 1.9.6"
   #Use a Terraform backend to store the .tfstate in an Azure Storage Account
   backend "azurerm" {
-    resource_group_name  = "TeamA-rg"
-    storage_account_name = "teamastorageaccount"
-    container_name       = "teamablobcontainer"
-    key                  = "acr-terraform.teamablobcontainer"
+    resource_group_name  = "TeamA-Staging-RG"
+    storage_account_name = "teamastoraccount"
+    container_name       = "tfstate"
+    key                  = "excercise2.tfstate"
   }
 
   required_providers {
