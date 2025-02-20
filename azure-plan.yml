@@ -1,5 +1,3 @@
-trigger: none
-
 jobs:
   - job: plan_terraform
     displayName: "Run Plan"
