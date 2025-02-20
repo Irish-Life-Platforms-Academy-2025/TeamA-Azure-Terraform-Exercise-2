@@ -1,0 +1,33 @@
+trigger: none
+
+jobs:
+  - job: plan_terraform
+    displayName: "Run Plan"
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+      terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'devtestserverconnection'
+      backendAzureRmResourceGroupName: '$(bkstrgrg)'
+      backendAzureRmStorageAccountName: '$(bkstrg)'
+      backendAzureRmContainerName: '$(bkcontainer)'
+      backendAzureRmKey: '$(bkstrgkey)'
+    - task: TerraformTaskV4@4
+      displayName: 'Select Workspace'
+      inputs:
+        provider: 'azurerm'
+        command: 'custom'
+        customCommand: 'workspace'
+        commandOptions: 'select -or-create $(env)'
+        outputTo: 'console'
+        environmentServiceNameAzureRM: 'devtestserverconnection'
+        #workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: TerraformTaskV4@4
+      inputs:
+         provider: 'azurerm'
+         command: 'plan'
+         environmentServiceNameAzureRM: 'devtestserverconnection'
