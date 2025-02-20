@@ -1,0 +1,32 @@
+trigger: none
+
+jobs:
+  - job: deploy_terraform
+    displayName: "Deploy"
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+        continueOnError: false
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'devtestserverconnection'
+        backendAzureRmResourceGroupName: '$(bkstrgrg)'
+        backendAzureRmStorageAccountName: '$(bkstrg)'
+        backendAzureRmContainerName: '$(bkcontainer)'
+        backendAzureRmKey: '$(bkstrgkey)'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'custom'
+        outputTo: 'console'
+        customCommand: 'Workspace'
+        environmentServiceNameAzureRM: 'devtestserverconnection'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'devtestserverconnection'
+
