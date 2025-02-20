@@ -1,0 +1,42 @@
+trigger: none
+
+variables:
+ bkstrgrg: 'TeamA-Staging-RG'
+ bkstrg: 'teamastoraccount'
+ bkcontainer: 'tfstate'
+ bkstrgkey: 'excercise2.tfstate'
+
+pool:
+  name: cshaigh-managed-devops-pool
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: setup_terraform_stage
+    displayName: 'Setup Environment'
+
+    jobs:
+      - template: setup.yml
+
+  - stage: plan_terraform_stage
+    displayName: 'Plan Terraform'
+    dependsOn:
+      - setup_terraform_stage
+    condition: succeeded('setup_terraform_stage')
+
+    jobs:
+      - template: plan.yml
+
+  - stage: deploy_terraform_stage
+    displayName: 'Deploy Terraform'
+    dependsOn:
+      - plan_terraform_stage
+    condition: succeeded('plan_terraform_stage')
+
+    jobs:
+      - template: deploy.yml
+
+  - stage: destroy_terraform_stage
+    displayName: 'Destroy Terraform'
+
+    jobs:
+      - template: destroy.yml
