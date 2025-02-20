@@ -1,0 +1,31 @@
+trigger: none
+
+
+
+pool:
+  name: cshaigh-managed-devops-pool
+  vmImage: ubuntu-latest
+
+jobs:
+  - job: prep_terraform
+    displayName: "Setup"
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+      terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'devtestserverconnection'
+        backendAzureRmResourceGroupName: '$(bkstrgrg)'
+        backendAzureRmStorageAccountName: '$(bkstrg)'
+        backendAzureRmContainerName: '(bkcontainer)'
+        backendAzureRmKey: '$(bkstrgkey)'
+    - task: TerraformTaskV4@4
+      inputs:
+      provider: 'azurerm'
+      command: 'validate'
+      #workingDirectory: '$(System.DefaultWorkingDirectory)'
+      continueOnError: false
+  
