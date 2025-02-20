@@ -1,7 +1,3 @@
-trigger: none
-
-
-
 pool:
   name: cshaigh-managed-devops-pool
   vmImage: ubuntu-latest
