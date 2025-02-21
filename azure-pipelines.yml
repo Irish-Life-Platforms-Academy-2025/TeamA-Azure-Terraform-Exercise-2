@@ -5,6 +5,7 @@ variables:
  bkstrg: 'teamastoraccount'
  bkcontainer: 'tfstate'
  bkstrgkey: 'excercise2.tfstate'
+ env: 'development'
 
 
 pool:
