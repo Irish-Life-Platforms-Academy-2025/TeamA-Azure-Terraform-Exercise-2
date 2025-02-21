@@ -38,7 +38,7 @@ jobs:
         command: 'apply'
         #commandOptions: MISSING TFVARS
         environmentServiceNameAzureRM: 'devtestserverconnection'
-        workingDirectory: '$(Pipeline.Workspace)/planfile'
-        commandOptions: '$(Pipeline.Workspace)/planfile/"terraform-dev.tfplan"'
+        workingDirectory: '$(Pipeline.Workspace)'
+        commandOptions: '$(Pipeline.Workspace)/planfile/terraform-dev.tfplan'
       continueOnError: false
 
