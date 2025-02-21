@@ -24,7 +24,7 @@ jobs:
         command: 'custom'
         outputTo: 'console'
         customCommand: 'Workspace'
-        commandOptions: 'select -or-create $(env)'
+        commandOptions: 'select $(env)'
         environmentServiceNameAzureRM: 'devtestserverconnection'
     - task: TerraformTaskV4@4
       displayName: 'Run apply'
@@ -33,5 +33,7 @@ jobs:
         command: 'apply'
         #commandOptions: MISSING TFVARS
         environmentServiceNameAzureRM: 'devtestserverconnection'
+        #Use tfplan
+        commandOptions: '-"terraform.tfplan"'
       continueOnError: false
 
