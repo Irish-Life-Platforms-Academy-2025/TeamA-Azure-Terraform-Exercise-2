@@ -16,7 +16,6 @@ jobs:
         provider: 'azurerm'
         command: 'init'
         backendServiceArm: 'devtestserverconnection'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
         backendAzureRmResourceGroupName: '$(bkstrgrg)'
         backendAzureRmStorageAccountName: '$(bkstrg)'
         backendAzureRmContainerName: '$(bkcontainer)'
@@ -29,7 +28,6 @@ jobs:
         outputTo: 'console'
         customCommand: 'workspace'
         commandOptions: 'select $(env)'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
         environmentServiceNameAzureRM: 'devtestserverconnection'
     - task: TerraformTaskV4@4
       displayName: 'Run apply'
