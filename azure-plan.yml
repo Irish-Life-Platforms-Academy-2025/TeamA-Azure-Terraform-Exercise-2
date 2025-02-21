@@ -38,5 +38,18 @@ jobs:
          #commandOptions: MISSING TFVARS
          environmentServiceNameAzureRM: 'devtestserverconnection'
          workingDirectory: '$(System.DefaultWorkingDirectory)'
-         commandOptions: '-out="terraform.tfplan"'
+         commandOptions: '-out=$(System.DefaultWorkingDirectory)/"terraform-dev.tfplan"'
       continueOnError: false
+      
+    - task: CopyFiles@2
+      displayName: 'Moving Terraform Code to artifact staging'
+      inputs:
+        Contents: '/**'
+        TargetFolder: '$(build.ArtifactStagingDirectory)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Making artifact available to apply stage'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'output-${env}'
+        publishLocation: 'Container'
