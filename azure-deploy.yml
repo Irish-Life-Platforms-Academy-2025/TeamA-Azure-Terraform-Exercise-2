@@ -3,7 +3,7 @@ jobs:
     displayName: "Terraform Deploy"
     steps:
     - download: current # get latest artifact
-      artifact: 'output-${env}' #fetch the output file from the plan phase
+      artifact: 'planfile' #fetch the output file from the plan phase
     
     - task: TerraformInstaller@1
       displayName: 'Install Terraform'
@@ -38,7 +38,7 @@ jobs:
         command: 'apply'
         #commandOptions: MISSING TFVARS
         environmentServiceNameAzureRM: 'devtestserverconnection'
-        workingDirectory: '$(Pipeline.Workspace)/output-${env}'
-        commandOptions: '$(Pipeline.Workspace)/output-${env}/"terraform-dev.tfplan"'
+        workingDirectory: '$(Pipeline.Workspace)/planfile'
+        commandOptions: '$(Pipeline.Workspace)/planfile/"terraform-dev.tfplan"'
       continueOnError: false
 
