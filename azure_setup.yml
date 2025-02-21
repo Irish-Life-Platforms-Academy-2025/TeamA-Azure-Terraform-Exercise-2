@@ -15,6 +15,7 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           backendServiceArm: 'devtestserverconnection'
           backendAzureRmResourceGroupName: '$(bkstrgrg)'
           backendAzureRmStorageAccountName: '$(bkstrg)'
@@ -27,5 +28,6 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'validate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
         continueOnError: false
   
