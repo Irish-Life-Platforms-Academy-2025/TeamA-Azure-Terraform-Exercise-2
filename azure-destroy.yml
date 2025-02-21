@@ -1,6 +1,6 @@
 jobs:
   - job: destroy_terraform
-    displayName: "destroy terraform resources"
+    displayName: "Terraform Destroy"
     steps:
       - task: TerraformInstaller@1
         displayName: 'Install Terraform'
