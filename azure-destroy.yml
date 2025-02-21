@@ -13,11 +13,12 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           backendServiceArm: 'devtestserverconnection'
-          backendAzureRmResourceGroupName: '$(beStrgRG)'
-          backendAzureRmStorageAccountName: '$(beStrg)'
-          backendAzureRmContainerName: '$(beStrgCon)'
-          backendAzureRmKey: '$(beStrgKey)'
+          backendAzureRmResourceGroupName: '$(bkstrgrg)'
+          backendAzureRmStorageAccountName: '$(bkstrg)'
+          backendAzureRmContainerName: '$(bkcontainer)'
+          backendAzureRmKey: '$(bkstrgkey)'
         continueOnError: false
       
       - task: TerraformTaskV4@4
@@ -27,8 +28,9 @@ jobs:
           command: 'custom'
           outputTo: 'console'
           customCommand: 'workspace'
-          commandOptions: 'select -or-create $(env)'
+          CommandOptions: 'select $(env)'
           environmentServiceNameAzureRM: 'devtestserverconnection'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
       - task: TerraformTaskV4@4
         displayName: 'Run Destroy'
@@ -36,4 +38,5 @@ jobs:
           provider: 'azurerm'
           command: 'destroy'
           environmentServiceNameAzureRM: 'devtestserverconnection'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
         continueOnError: false
