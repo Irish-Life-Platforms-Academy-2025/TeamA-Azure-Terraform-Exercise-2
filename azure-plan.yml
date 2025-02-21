@@ -51,5 +51,5 @@ jobs:
       displayName: 'Making artifact available to apply stage'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'output-${env}'
+        ArtifactName: 'planfile'
         publishLocation: 'Container'
