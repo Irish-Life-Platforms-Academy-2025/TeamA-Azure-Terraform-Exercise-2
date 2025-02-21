@@ -3,17 +3,21 @@ jobs:
     displayName: "Run Plan"
     steps:
     - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
       inputs:
-      terraformVersion: 'latest'
+        terraformVersion: 'latest'
+      continueOnError: false
     - task: TerraformTaskV4@4
+      displayName: 'Run Terraform Init'
       inputs:
-      provider: 'azurerm'
-      command: 'init'
-      backendServiceArm: 'devtestserverconnection'
-      backendAzureRmResourceGroupName: '$(bkstrgrg)'
-      backendAzureRmStorageAccountName: '$(bkstrg)'
-      backendAzureRmContainerName: '$(bkcontainer)'
-      backendAzureRmKey: '$(bkstrgkey)'
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'devtestserverconnection'
+        backendAzureRmResourceGroupName: '$(bkstrgrg)'
+        backendAzureRmStorageAccountName: '$(bkstrg)'
+        backendAzureRmContainerName: '$(bkcontainer)'
+        backendAzureRmKey: '$(bkstrgkey)'
+      continueOnError: false
     - task: TerraformTaskV4@4
       displayName: 'Select Workspace'
       inputs:
@@ -23,9 +27,11 @@ jobs:
         commandOptions: 'select -or-create $(env)'
         outputTo: 'console'
         environmentServiceNameAzureRM: 'devtestserverconnection'
-        #workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: TerraformTaskV4@4
+      displayName: 'Run Terraform Plan'
       inputs:
          provider: 'azurerm'
          command: 'plan'
+         #commandOptions: MISSING TFVARS
          environmentServiceNameAzureRM: 'devtestserverconnection'
+      continueOnError: false
