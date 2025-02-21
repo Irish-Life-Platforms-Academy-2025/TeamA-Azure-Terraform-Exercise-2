@@ -1,10 +1,7 @@
 jobs:
   - job: deploy_terraform
     displayName: "Terraform Deploy"
-    steps:
-    - download: current # get latest artifact
-      artifact: 'planfile' #fetch the output file from the plan phase
-    
+    steps:    
     - task: TerraformInstaller@1
       displayName: 'Install Terraform'
       inputs:
@@ -15,6 +12,7 @@ jobs:
       inputs:
         provider: 'azurerm'
         command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
         backendServiceArm: 'devtestserverconnection'
         backendAzureRmResourceGroupName: '$(bkstrgrg)'
         backendAzureRmStorageAccountName: '$(bkstrg)'
@@ -28,15 +26,14 @@ jobs:
         outputTo: 'console'
         customCommand: 'workspace'
         commandOptions: 'select $(env)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
         environmentServiceNameAzureRM: 'devtestserverconnection'
     - task: TerraformTaskV4@4
       displayName: 'Run apply'
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        #commandOptions: MISSING TFVARS
         environmentServiceNameAzureRM: 'devtestserverconnection'
-        workingDirectory: '$(Pipeline.Workspace)'
-        commandOptions: '$(Pipeline.Workspace)/planfile/terraform-dev.tfplan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
       continueOnError: false
 
