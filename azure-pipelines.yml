@@ -1,10 +1,17 @@
 trigger: none
 
 variables:
- bkstrgrg: 'TeamA-Staging-RG'
- bkstrg: 'teamastoraccount'
- bkcontainer: 'tfstate'
- bkstrgkey: 'excercise2.tfstate'
+- name: backendAzureRmResourceGroupName
+  value: 'TeamA-Staging-RG'
+- name: backendAzureRmStorageAccountName
+  value: 'teamastoraccount'
+- name: backendAzureRmContainerName
+  value: 'tfstate'
+- name: backendAzureRmKey
+  value: 'excercise2.tfstateenv:development'
+- name: environment
+  value: 'Development'
+
 
 pool:
   name: cshaigh-managed-devops-pool
@@ -15,7 +22,7 @@ stages:
     displayName: 'Setup Environment'
 
     jobs:
-      - template: setup.yml
+      - template: azure_setup.yml
 
   - stage: plan_terraform_stage
     displayName: 'Plan Terraform'
@@ -24,7 +31,7 @@ stages:
     condition: succeeded('setup_terraform_stage')
 
     jobs:
-      - template: plan.yml
+      - template: azure-plan.yml
 
   - stage: deploy_terraform_stage
     displayName: 'Deploy Terraform'
@@ -33,10 +40,10 @@ stages:
     condition: succeeded('plan_terraform_stage')
 
     jobs:
-      - template: deploy.yml
+      - template: azure-deploy.yml
 
   - stage: destroy_terraform_stage
     displayName: 'Destroy Terraform'
 
     jobs:
-      - template: destroy.yml
+      - template: azure-destroy.yml
