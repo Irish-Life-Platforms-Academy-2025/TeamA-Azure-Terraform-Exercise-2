@@ -1,16 +1,10 @@
 trigger: none
 
 variables:
-- name: backendAzureRmResourceGroupName
-  value: 'TeamA-Staging-RG'
-- name: backendAzureRmStorageAccountName
-  value: 'teamastoraccount'
-- name: backendAzureRmContainerName
-  value: 'tfstate'
-- name: backendAzureRmKey
-  value: 'excercise2.tfstateenv:development'
-- name: environment
-  value: 'Development'
+ bkstrgrg: 'TeamA-Staging-RG'
+ bkstrg: 'teamastoraccount'
+ bkcontainer: 'tfstate'
+ bkstrgkey: 'excercise2.tfstate'
 
 
 pool:
